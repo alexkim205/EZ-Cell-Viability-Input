@@ -6,7 +6,7 @@ library(data.table)
 shinyServer(function(input, output) {
   
   alpha <- LETTERS[1:8]
-  numer <- sprintf("%02d", c(1:12))
+  numer <- c(1:12)
   
   permute_alpha_numer <- expand.grid(numer, alpha)
   cvs <- c("NC", "NC-VL", "VL", "VL-L", "L", "L-M", "M", "M-G", "G", "G-VG", "VG")
@@ -15,11 +15,10 @@ shinyServer(function(input, output) {
   
   
   values <- reactiveValues(
-    data = data.table(Row=numeric(0), 
+    data = data.table(Row=character(0), 
                       Column=numeric(0), 
-                      Cell_Viability=numeric(0)),
+                      Cell_Viability=character(0)),
     key = NULL,
-    row_i = 1,
     shouldadd = T
   )
   
@@ -41,14 +40,13 @@ shinyServer(function(input, output) {
       
       # put into table
       if(!is.null(cv_temp)) {
+        pointer <- nrow(values$data) + 1
         
-        insert_this <- list(toString(permute_alpha_numer[values$row_i, 2]), 
-                         toString(permute_alpha_numer[values$row_i, 1]),
-                         cv_temp)
+        insert_this <- list(toString(permute_alpha_numer[pointer, 2]), 
+                            toString(permute_alpha_numer[pointer, 1]),
+                            cv_temp)
         
         values$data <- rbind(values$data, insert_this)
-        
-        values$row_i <- values$row_i + 1
       }
     }
   })
@@ -63,15 +61,47 @@ shinyServer(function(input, output) {
     if(is.null(values$data)) {
       return(NULL)
     }
-    rhandsontable(values$data)
+    rhandsontable(values$data, height = 500, stretchH = "all") %>% 
+      hot_context_menu(allowRowEdit = TRUE, allowColEdit = FALSE) %>%
+      hot_validate_character(cols = "Row", choices = alpha) %>%
+      hot_validate_numeric(cols = "Column", choices = numer)
+#       hot_cols(renderer = "
+# 
+# function (instance, td, row, col, prop, value, cellProperties) {
+#   Handsontable.renderers.TextRenderer.apply(this, arguments);
+#     if (instance.getData()[row][3] == 'NC') {
+#       td.style.background = rgb(255, 99, 71);
+#     } else if (instance.getData()[row][3] == 'NC-VL') {
+#       td.style.background = rgb(254, 138, 79);
+#     } else if (instance.getData()[row][3] == 'VL') {
+#       td.style.background = rgb(254, 174, 87);
+#     } else if (instance.getData()[row][3] == 'VL-L') {
+#       td.style.background = rgb(253, 207, 95);
+#     } else if (instance.getData()[row][3] == 'L') {
+#       td.style.background = rgb(253, 237, 103);
+#     } else if (instance.getData()[row][3] == 'L-M') {
+#       td.style.background = rgb(242, 253, 111);
+#     } else if (instance.getData()[row][3] == 'M') {
+#       td.style.background = rgb(217, 252, 119);
+#     } else if (instance.getData()[row][3] == 'M-G') {
+#       td.style.background = rgb(196, 252, 127);
+#     } else if (instance.getData()[row][3] == 'G') {
+#       td.style.background = rgb(178, 251, 136);
+#     } else if (instance.getData()[row][3] == 'G-VG') {
+#       td.style.background = rgb(163, 251, 144);
+#     } else if (instance.getData()[row][3] == 'VG') {
+#       td.style.background = rgb(152, 250, 152);
+#     }
+#   }
+#                ")
   })
-   
+  
   output$keypressed <- renderText({
-
+    
     if(is.null(values$key)) {
       return(NULL)
     }
-
+    
     t <- "Key pressed: "
     if (values$key >= 1 && values$key <= 9) {
       t <- paste0(t, values$key,"\n")
@@ -116,7 +146,7 @@ shinyServer(function(input, output) {
       "0\tG-VG\n",
       "-\tVG\n"
     )
-
+    
     t
   })
   
