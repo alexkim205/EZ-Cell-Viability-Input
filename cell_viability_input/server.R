@@ -61,7 +61,7 @@ shinyServer(function(input, output) {
     if(is.null(values$data)) {
       return(NULL)
     }
-    rhandsontable(values$data, height = 500, stretchH = "all") %>% 
+    rhandsontable(values$data, height = 400, stretchH = "all") %>% 
       hot_context_menu(allowRowEdit = TRUE, allowColEdit = FALSE) %>%
       hot_validate_character(cols = "Row", choices = alpha) %>%
       hot_validate_numeric(cols = "Column", choices = numer)
@@ -149,5 +149,20 @@ shinyServer(function(input, output) {
     
     t
   })
+  
+  output$downloadCSV <- downloadHandler(
+
+    filename = function() {
+		  f <- paste(input$timestamp, input$pert_map, input$day, input$replicate, "cellqual", sep = "_")
+	    f <- paste(f, "tsv", sep=".")  
+	    f
+		},
+
+    content = function(file) {
+
+      write.table(values$data, file, sep = "\t", quote = F,
+        row.names = FALSE)
+    }
+  )
   
 })

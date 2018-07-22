@@ -44,12 +44,13 @@ $("*").not("#table, #table *")
               '),
   
   # Application title
-  titlePanel("Cell Viability Input"),
+  titlePanel("EZ Cell Viability Input"),
   
   sidebarLayout(
     sidebarPanel(
-      h3("Levels of Viability"),
-      p("Press the corresponding key for each level:"),
+      h3("Instructions"),
+      p("Press the corresponding key for each level of cell viability."),
+      h4("Levels of Viability"),
       verbatimTextOutput("levels"),
       h4("Legend"),
       verbatimTextOutput("legend"),
@@ -59,13 +60,28 @@ $("*").not("#table, #table *")
     ),
     mainPanel(
       fluidRow(
-        column(12, wellPanel(
+        column(12, align = "center", 
+               wellPanel(
           h3("Experimental Parameters"),
-          div(id="rangeInput", 
-              p("I'm looking at a plate with dimensions A to ", 
-                textInput("alpha", label = NULL, value = "H"),
-                " by 1 to ",
-                numericInput("num", label = NULL, value = 12)))
+          column(12,
+                 column(6,
+                        dateInput("timestamp", label = "Timestamp", value = Sys.Date()),
+                        textInput("pert_map", label = "Perturbation Map", value = "DBI31"),
+                        textInput("alpha", label = "Last Row", value = "H")
+                 ),
+                 column(6,
+                        textInput("day", label = "Day", value = "D12"),
+                        textInput("replicate", label = "Replicate", value = "R1"),
+                        numericInput("num", label = "Last Column", value = 12)
+                 )
+          ),
+          # div(id="rangeInput", 
+          #     p("I'm looking at a plate with dimensions A to ", 
+          #       textInput("alpha", label = NULL, value = "H"),
+          #       " by 1 to ",
+          #       numericInput("num", label = NULL, value = 12))),
+          hr(),
+          downloadButton('downloadCSV', 'Download as .tsv')
         )),
         
         column(12, rHandsontableOutput('table'))
