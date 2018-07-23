@@ -2,7 +2,7 @@
 title: "Cell Viability Input"
 author: "Alex Kim"
 date: "7/22/2018"
-output: github_document
+output: rmarkdown::github_document
 ---
 
 ```{r setup, include=FALSE}
