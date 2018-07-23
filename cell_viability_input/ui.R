@@ -22,18 +22,12 @@ shinyUI(fluidPage(
                        ')),
   tags$script('
 
-function gotoBottom(id){
-   var element = document.getElementsByClassName(id);
-   element.scrollTop = element.scrollHeight - element.clientHeight;
-}
-
-$("*").not("#table, #table *")
+$("*")
   // set key value
   .on("keypress", function (e) {
-    if(!$("#table, #table *").is(":focus")) {
+    if(!$("#table, #table *, input, input *").is(":focus")) {
       Shiny.onInputChange("keypress", e.which);
       console.log("keypressed")
-      gotoBottom("table")
     } else {console.log("in table");}
   })
   // reset key value
@@ -80,8 +74,9 @@ $("*").not("#table, #table *")
           #       textInput("alpha", label = NULL, value = "H"),
           #       " by 1 to ",
           #       numericInput("num", label = NULL, value = 12))),
-          hr(),
-          downloadButton('downloadCSV', 'Download as .tsv')
+          br(),
+          verbatimTextOutput("filename"),
+          downloadButton('downloadCSV', 'Export table to .tsv')
         )),
         
         column(12, rHandsontableOutput('table'))

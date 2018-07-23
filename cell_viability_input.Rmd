@@ -9,22 +9,22 @@ output: github_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Get Started
+## Getting Started
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+1. First clone this repo in your directory.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{bash}
+git clone git@gitlab.com:alexkim205/Cell-Viability-Input-Shiny.git
 ```
 
-## Including Plots
+2. Open `server.R` and `ui.R` in RStudio.
+3. Click run in the top right of the editor window. 
 
-You can also embed plots, for example:
+## Instructions
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+1. Define parameters.
+2. Try pressing any key from 1-9, 0, and -. Look at the legend on the left to figure out which key corresponds to what viability.
+  * There will be a readout of which key you pressed.
+  * A row in the table will be added in order by well. 
+  * If you make a mistake you can edit the table **directly**.
+3. Once you are finished, click the download button to download the file as the filename shown.
