@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 1. First clone this repo in your directory.
 
-```{bash eval=FALSE, include=FALSE, echo=TRUE}
+```{bash eval=FALSE, echo=TRUE}
 git clone git@gitlab.com:alexkim205/Cell-Viability-Input-Shiny.git
 ```
 

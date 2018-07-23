@@ -8,8 +8,12 @@ Getting Started
 
 1.  First clone this repo in your directory.
 
-2.  Open `server.R` and `ui.R` in RStudio.
-3.  Click run in the top right of the editor window.
+``` bash
+git clone git@gitlab.com:alexkim205/Cell-Viability-Input-Shiny.git
+```
+
+1.  Open `server.R` and `ui.R` in RStudio.
+2.  Click run in the top right of the editor window.
 
 Instructions
 ------------
@@ -20,6 +24,6 @@ Instructions
 
     -   There will be a readout of which key you pressed.
     -   A row in the table will be added in order by well.
-    -   If you make a mistake you can edit the table **directly**.
+    -   If you make a mistake you can edit the table directly.
 
 3.  Once you are finished, click the download button to download the table with the filename shown.
