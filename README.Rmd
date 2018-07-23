@@ -1,5 +1,5 @@
 ---
-title: "Cell Viability Input"
+title: "Cell Viability Input README"
 author: "Alex Kim"
 date: "7/22/2018"
 output: rmarkdown::github_document
@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 1. First clone this repo in your directory.
 
-```{bash}
+```{bash eval=FALSE, include=FALSE, echo=TRUE}
 git clone git@gitlab.com:alexkim205/Cell-Viability-Input-Shiny.git
 ```
 
@@ -22,9 +22,12 @@ git clone git@gitlab.com:alexkim205/Cell-Viability-Input-Shiny.git
 
 ## Instructions
 
-1. Define parameters.
-2. Try pressing any key from 1-9, 0, and -. Look at the legend on the left to figure out which key corresponds to what viability.
-  * There will be a readout of which key you pressed.
-  * A row in the table will be added in order by well. 
-  * If you make a mistake you can edit the table **directly**.
+1. Define the parameters.
+
+2. Try pressing these keys `1-9`, `0`, or `-`. Look at the legend on the left to figure out which key corresponds to what viability.
+
+    * There will be a readout of which key you pressed.
+    * A row in the table will be added in order by well. 
+    * If you make a mistake you can edit the table directly.
+
 3. Once you are finished, click the download button to download the table with the filename shown.
